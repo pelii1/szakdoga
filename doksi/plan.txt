@@ -1,0 +1,108 @@
+
+ENUMS
+
+Street enum
+	FLOP,TURN,RIVER,SHOWDOWN,END
+Position enum
+	UTG,MP,CO,BU,SB,BB
+CardColor enum
+	HEART,SPADE,DIAMOND,CLUB
+CardValue enum
+	TWO,THREE,FOUR,FIVE,SIX,SEVEN,EIGHT,NINE,TEN,JUMBO,QUEEN,KING,ACE
+	
+HandValue enum
+	HIGHVALUE,PAIR,TWOPAIR,SET,STRAIGHT,FLUSH,FULL,POKER,SUITEDSTRAIGHT
+
+Act enum
+	FOLD,CALL,RAISE,CHECK
+
+CLASSES
+
+Table
+	- players
+	- playState
+	
+	************************
+	
+	boolean isFull();
+	
+	
+
+Players
+	List<Player>
+	
+	************************
+	
+	player nextPlayer(Street);
+	boolean addPlayer(player);
+	void deletePlayer(player);
+	int count();
+
+PlayState
+	- street
+	- board
+	
+	**************************
+	
+	void startPlay();
+	void nextStreet(); setBoard, and street if is necessary
+
+Hand
+	- 5 card
+	- handValue
+	
+	************
+	- Hand createInstance(Board, Cards)
+	- equals
+	
+Board
+	- flop
+	- turn
+	- river
+
+EquityCard
+	- card
+	- equity
+
+Equity
+	- board
+	
+	*****************
+	
+	List<EquityCard> calculate(List<EquityCard>)
+
+StrategyItem
+	
+SimpleStrategyItem extendes StrategyItem
+	- position
+	- actions
+	- cards
+	- street
+
+interface Strategy 
+	Act calculate(StrategyItem)
+
+PlayerHand
+	- position
+	- cards
+	
+Player
+	- strategy
+	
+	- playerHand
+
+Flop
+	- 3 card
+
+Turn
+	- 1 card
+
+River
+	- 1 card 
+
+Cards
+	- 2 card
+  
+Card
+	- cardColor
+	- cardValue
