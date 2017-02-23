@@ -7,11 +7,11 @@ import lombok.Getter;
 
 @Getter
 public enum CardColor {
-	UNKNOWN(CardColor.UNKNOWN_CARD_COLOR),
-	HEART(CardColor.HEART_CARD_COLOR),
-	SPADE(CardColor.SPADE_CARD_COLOR),
-	DIAMOND(CardColor.DIAMOND_CARD_COLOR),
-	CLUB(CardColor.CLUB_CARD_COLOR);
+	UNKNOWN(CardColor.UNKNOWN_CARD_COLOR,-1),
+	HEART(CardColor.HEART_CARD_COLOR,0),
+	SPADE(CardColor.SPADE_CARD_COLOR,1),
+	DIAMOND(CardColor.DIAMOND_CARD_COLOR,2),
+	CLUB(CardColor.CLUB_CARD_COLOR,3);
 	
 	static Logger logger = Logger.getLogger(CardColor.class);
 	
@@ -22,9 +22,11 @@ public enum CardColor {
 	public static final String UNKNOWN_CARD_COLOR = "?";
 	
 	private String code;
+	private int div;
 	
-	CardColor(String code) {
+	CardColor(String code,int div) {
 		this.code = code;
+		this.div = div;
 	}
 	
 	public static CardColor decodeByCode(String code) {
@@ -37,4 +39,16 @@ public enum CardColor {
 		logger.warn(Message.INVALID_CARD_COLOR_CODE.getMessageString(new Object[] {code}));
 		return CardColor.UNKNOWN;
 	}
+	
+	public static CardColor decodeByDiv(int div) {
+		for(CardColor cardColor : CardColor.values()) {
+			if (cardColor.getDiv() == div) {
+				return cardColor;
+			}
+		}
+		
+		logger.warn(Message.INVALID_CARD_COLOR_CODE.getMessageString(new Object[] {div}));
+		return CardColor.UNKNOWN;
+	}
+	
 }

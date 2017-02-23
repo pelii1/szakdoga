@@ -1,4 +1,4 @@
-package hu.zskf.common;
+package hu.zskf.card;
 
 import hu.zskf.common.enums.CardColor;
 import hu.zskf.common.enums.CardValue;
@@ -9,19 +9,27 @@ import lombok.Getter;
 @Getter
 @Builder
 @EqualsAndHashCode
-public class Card {
+public class Card implements Comparable<Card> {
 	private CardColor cardColor;
 	private CardValue cardValue;
 	
 	public static Card createInstance(String card) {
 		if (card != null && card.length() == 2) {
 			return Card.builder()
-					.cardValue(CardValue.decodeByCode(card.charAt(0) + ""))
-					.cardColor(CardColor.decodeByCode(card.charAt(1) + ""))
+					.cardValue(CardValue.decodeByCode(Character.toString(card.charAt(0))))
+					.cardColor(CardColor.decodeByCode(Character.toString(card.charAt(1))))
 					.build();
 		}
 		 
 		return getEmptyCard();
+	}
+	
+	public static Card createInstance(int card) {
+		int modulo = card % 13;
+		int div = card / 4;
+		
+		CardValue.
+		return null;
 	}
 	
 	public static Card getEmptyCard() {
@@ -34,5 +42,13 @@ public class Card {
 	@Override
 	public String toString() {
 		return cardValue.getCode().toUpperCase() + cardColor.getCode().toLowerCase();
+	}
+
+	public int compareTo(Card otherCard) {
+		int result = getCardValue().compareTo(otherCard.getCardValue());
+		if (result == 0) {
+			return getCardColor().compareTo(otherCard.getCardColor());
+		}
+		return result;
 	}
 }

@@ -1,9 +1,10 @@
-package hu.zskf.common;
+package card;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import hu.zskf.card.Card;
 import hu.zskf.common.enums.CardColor;
 import hu.zskf.common.enums.CardValue;
 
@@ -45,5 +46,18 @@ public class CardTest {
 		assertEquals(underTest,Card.getEmptyCard());
 		
 		System.out.println(Card.builder());
+	}
+	
+	@Test
+	public void testCompare() {
+		Card underTest = Card.createInstance("Td");
+		
+		Card lessCard = Card.createInstance("4s");
+		Card biggerCard = Card.createInstance("Jc");
+		
+		
+		assertTrue(underTest.compareTo(lessCard) > 0);
+		assertTrue(underTest.compareTo(biggerCard) < 0);
+		assertEquals(underTest.compareTo(underTest),0);
 	}
 }

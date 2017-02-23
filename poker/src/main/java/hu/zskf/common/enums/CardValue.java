@@ -7,20 +7,20 @@ import lombok.Getter;
 
 @Getter
 public enum CardValue {
-	UNKNOWN(CardValue.UNKNOWN_CARD_VALUE),
-	TWO(CardValue.TWO_CARD_VALUE),
-	THREE(CardValue.THREE_CARD_VALUE),
-	FOUR(CardValue.FOUR_CARD_VALUE),
-	FIVE(CardValue.FIVE_CARD_VALUE),
-	SIX(CardValue.SIX_CARD_VALUE),
-	SEVEN(CardValue.SEVEN_CARD_VALUE),
-	EIGHT(CardValue.EIGHT_CARD_VALUE),
-	NINE(CardValue.NINE_CARD_VALUE),
-	TEN(CardValue.TEN_CARD_VALUE),
-	JACK(CardValue.JACK_CARD_VALUE),
-	QUEEN(CardValue.QUEEN_CARD_VALUE),
-	KING(CardValue.KING_CARD_VALUE),
-	ACE(CardValue.ACE_CARD_VALUE);
+	UNKNOWN(CardValue.UNKNOWN_CARD_VALUE,-1),
+	TWO(CardValue.TWO_CARD_VALUE,1),
+	THREE(CardValue.THREE_CARD_VALUE,2),
+	FOUR(CardValue.FOUR_CARD_VALUE,3),
+	FIVE(CardValue.FIVE_CARD_VALUE,4),
+	SIX(CardValue.SIX_CARD_VALUE,5),
+	SEVEN(CardValue.SEVEN_CARD_VALUE,6),
+	EIGHT(CardValue.EIGHT_CARD_VALUE,7),
+	NINE(CardValue.NINE_CARD_VALUE,8),
+	TEN(CardValue.TEN_CARD_VALUE,9),
+	JACK(CardValue.JACK_CARD_VALUE,10),
+	QUEEN(CardValue.QUEEN_CARD_VALUE,11),
+	KING(CardValue.KING_CARD_VALUE,12),
+	ACE(CardValue.ACE_CARD_VALUE,0);
 	
 	public static final String UNKNOWN_CARD_VALUE = "?";
 	public static final String TWO_CARD_VALUE = "2";
@@ -40,9 +40,11 @@ public enum CardValue {
 	
 	private static Logger logger = Logger.getLogger(CardValue.class);
 	private String code;
+	private int modulo;
 	
-	CardValue(String code) {
+	CardValue(String code,int modulo) {
 		this.code = code;
+		this.modulo = modulo;
 	}
 	
 	public static CardValue decodeByCode(String code) {
@@ -54,5 +56,16 @@ public enum CardValue {
 		
 		logger.warn(Message.INVALID_CARD_VALUE_CODE.getMessageString(new Object[] { code }));
 		return CardValue.UNKNOWN;
+	}
+	
+	public static CardValue decodeByModulo(int modulo) {
+		for (CardValue cardValue : CardValue.values()) {
+			if (cardValue.getModulo() == modulo) {
+				return cardValue;
+			}
+		}
+		
+		logger.warn(Message.INVALID_CARD_VALUE_CODE.getMessageString(new Object[] { modulo }));
+		return CardValue.UNKNOWN;		
 	}
 }

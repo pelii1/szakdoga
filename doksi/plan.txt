@@ -44,7 +44,7 @@ PlayState
 	
 	**************************
 	
-	void startPlay();
+	void initPlaying();
 	void nextStreet(); setBoard, and street if is necessary
 
 Hand
@@ -59,7 +59,22 @@ Board
 	- flop
 	- turn
 	- river
+	
+	*****************************
+	
 
+Dealer
+
+	********************************
+	void mixCards();
+	Card getNewCard();
+	void initCards();
+	Cards getCards();
+	Flop getFlop();
+	Turn getTurn();
+	River getRiver();
+
+	
 EquityCard
 	- card
 	- equity
