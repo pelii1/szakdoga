@@ -67,8 +67,8 @@ Dealer
 
 	********************************
 	void mixCards();
-	Card getNewCard();
-	void initCards();
+	Card getNextCard();
+	
 	Cards getCards();
 	Flop getFlop();
 	Turn getTurn();
